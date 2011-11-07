@@ -48,19 +48,17 @@ class Quotes
     return results
   end
 
-  def quotes
-    results = all
-  end
 
   def search(params ={})
     results = []
     return results  unless File.exist?(@file)
     
-    quotes.map do |quote|
+    all.map do |quote|
        params.empty? ? quote : params.map {|key,value| quote if quote.send("#{key}?", value) }.uniq
     end.flatten.compact
   end
 
   alias :[] :find
+  alias :quotes :all
 end
 
